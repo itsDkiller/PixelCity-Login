@@ -45,6 +45,8 @@ class Logger {
     }
 }
 
+const logger = new Logger('PixelCity-Login', new Date());
+
 module.exports = {
-    Logger
+    logger
 }
