@@ -24,6 +24,8 @@
   "dependencies": {
     "colors": "^1.4.0",
     "dateformat": "^4.4.1",
-    "simple-json-db": "^1.2.2"
+    "discord.js": "^12.5.1",
+    "simple-json-db": "^1.2.2",
+    "underscore": "^1.12.0"
   }
 }
