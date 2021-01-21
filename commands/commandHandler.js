@@ -15,6 +15,10 @@ class CommandHandler {
         return this.#commands;
     }
 
+    sendNoPermissionError(message) {
+        return message.channel.send('Die hast nicht die nötigen Berechtigungen.');
+    }
+
     /**
      * @returns {Promise}
      */
@@ -55,14 +59,17 @@ class CommandHandler {
             if (this.#commands.has(name)) {
                 if (underscore.intersection(message.member.roles.cache, this.#commands.get(name).allowedRoleIDs()).length >= 1) {
                     this.#commands.get(name).execute(client, message, args);
-                }
+
+                } else return this.sendNoPermissionError(message);
+
             } else if ([...this.#commands].find(([commandName, commandClass]) => commandClass.aliases().includes(name))) {
+
                 if (underscore.intersection(message.member.roles.cache, [...this.#commands].find(([commandName, commandClass]) => commandClass.aliases()))) {
                     [...this.#commands].find(([commandName, commandClass]) => commandClass.aliases().includes(name)).execute(client, message, args);
-                }
-            } else return;
 
-            //HOLY FUCK WHAT HAVE I DONE
+                } else return this.sendNoPermissionError(message);
+
+            } else return;
 
         } catch(err) {
             return logger.displayError('CommandHandler', 'An error occured while handling an incoming message');
@@ -70,6 +77,8 @@ class CommandHandler {
     }
 }
 
+const handler = new CommandHandler();
+
 module.exports = {
-    CommandHandler
+    handler
 }
