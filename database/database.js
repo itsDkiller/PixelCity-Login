@@ -61,7 +61,7 @@ class Database {
     /**
      * @returns {void}
      */
-    sync() {
+    async sync() {
         return this.db.sync();
     }
 
