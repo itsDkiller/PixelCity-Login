@@ -25,15 +25,15 @@ class CommandHandler {
     loadCommandFiles() {
         return new Promise((resolve, reject) => {
             try {
-                fs.readdir('./commands/', (err, files) => {
+                fs.readdir(__dirname + '/list/', (err, files) => {
                    const map = new Map();
 
                    for (const file of files) {
                        if (!file.endsWith('.js')) return;
 
-                       let commandClass = require(file);
+                       let commandClass = require(__dirname + '/list/' + file);
                        let command      = new commandClass();
-                       let commandName  = command.name();
+                       let commandName  = command.name;
 
                        map.set(commandName, command);
                    }

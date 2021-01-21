@@ -1,5 +1,10 @@
 class Command {
 
+    #name
+    #description
+    #aliases
+    #allowedRoleIDs
+
     /**
      * @param {string} name The command name
      * @param {string} description The description of the command
@@ -7,38 +12,38 @@ class Command {
      * @param {Array} allowedRoleIDs The role IDs that should be allowed to use this command
      */
     constructor(name, description, aliases, allowedRoleIDs) {
-        this.name            = name;
-        this.description     = description;
-        this.aliases         = aliases;
-        this.allowedRoleIDs  = allowedRoleIDs;
+        this.#name            = name;
+        this.#description     = description;
+        this.#aliases         = aliases;
+        this.#allowedRoleIDs  = allowedRoleIDs;
     }
 
     /**
      * @returns {string}
      */
     get name() {
-        return this.name;
+        return this.#name;
     }
 
     /**
      * @returns {string}
      */
     get description() {
-        return this.description;
+        return this.#description;
     }
 
     /**
      * @returns {Array}
      */
     get aliases() {
-        return this.aliases;
+        return this.#aliases;
     }
 
     /**
      * @returns {Array}
      */
     get allowedRoleIDs() {
-        return this.allowedRoleIDs;
+        return this.#allowedRoleIDs;
     }
 }
 

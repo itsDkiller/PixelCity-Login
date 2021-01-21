@@ -10,6 +10,4 @@ class HelloWorldCommand extends Command {
 
 }
 
-module.exports = {
-    HelloWorldCommand
-}
+module.exports = HelloWorldCommand
