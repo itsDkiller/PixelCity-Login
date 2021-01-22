@@ -10,3 +10,5 @@ class ReadyEvent extends Event {
         console.log('Emit ready event');
     }
 }
+
+module.exports = ReadyEvent;

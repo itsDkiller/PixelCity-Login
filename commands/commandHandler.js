@@ -31,9 +31,9 @@ class CommandHandler {
         return new Promise((resolve, reject) => {
             try {
                 fs.readdir(__dirname + '/list/', (err, files) => {
-                   const map = new Map();
+                   let map = new Map();
 
-                   for (const file of files) {
+                   for (let file of files) {
                        if (!file.endsWith('.js')) return;
 
                        let commandClass = require(__dirname + '/list/' + file);
@@ -45,7 +45,7 @@ class CommandHandler {
                    this.#commands = map;
                    return resolve();
                 });
-            } catch(err) {
+            } catch {
                 logger.displayError('CommandHandler', 'There was an error while loading the command files');
                 return reject('Error while loading the command files');
             }
@@ -82,8 +82,8 @@ class CommandHandler {
     }
 }
 
-const handler = new CommandHandler();
+const commandHandler = new CommandHandler();
 
 module.exports = {
-    handler
+    commandHandler
 }
