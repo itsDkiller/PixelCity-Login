@@ -6,7 +6,6 @@
 const { Message, Client } = require('discord.js');
 const { logger }          = require('../logger/logger');
 const fs                  = require('fs');
-const underscore          = require('underscore');
 const prefix              = require('../config.json').prefix;
 
 class CommandHandler {
