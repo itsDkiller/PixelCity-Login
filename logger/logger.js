@@ -10,11 +10,9 @@ class Logger {
 
     /**
      * @param {string} prefix Prefix to display after the timestamp
-     * @param {Date} date Node.js date instance
      */
-    constructor(prefix, date) {
+    constructor(prefix) {
         this.prefix = prefix;
-        this.date   = date;
     }
 
     /**
@@ -46,11 +44,11 @@ class Logger {
      * @returns {string} Parsed date format
      */
     parseDateToString() {
-        return dateformat(this.date, "yyyy-mm-dd h:MM:ss");
+        return dateformat(new Date(), "yyyy-mm-dd h:MM:ss");
     }
 }
 
-const logger = new Logger('PixelCity-Login', new Date());
+const logger = new Logger('PixelCity-Login');
 
 module.exports = {
     logger

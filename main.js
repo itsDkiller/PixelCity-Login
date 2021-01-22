@@ -6,12 +6,9 @@
 const { logger }   = require('./logger/logger');
 const { database } = require('./database/database');
 const { handler }  = require('./commands/commandHandler');
+const { client }   = require('./client/client');
 const config       = require('./config.json');
 const pack         = require('./package.json');
-
-const Discord      = require('discord.js');
-
-const client       = new Discord.Client({ fetchAllMembers: true });
 
 
 class PixelCityLogin {
