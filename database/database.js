@@ -20,7 +20,7 @@ class Database {
      * @param {string} ingame The XBOX-Live name of the player
      * @param {string} language The language of the player
      */
-    setEntry(id, ingame, language) {
+    setEntry(id, ingame, language, onServer) {
         if (!this.db.has(id)) {
             return this.db.set(`${id}`, { ingame: `${ingame}`, language: `${language}`});
         } else return logger.displayError('Database', 'Attempt to create entry that already exists');
@@ -55,6 +55,7 @@ class Database {
      * @param {string} id The discord ID of the player
      * @param {string} ingame The XBOX-Live name of the player
      * @param {string} language The language of the player
+
      */
     replaceEntry(id, ingame, language) {
         if (this.db.has(id)) {

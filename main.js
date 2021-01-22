@@ -21,7 +21,7 @@ class PixelCityLogin {
         logger.displayInfo('Start', 'Synchronized the database content with the storage');
 
         await eventHandler.bindEventFiles();
-        logger.displayInfo('Start', 'Loaded all discord event files');
+        logger.displayInfo('Start', 'Bound all discord event files');
 
         await commandHandler.loadCommandFiles();
         logger.displayInfo('Start', 'Loaded all discord command files');
