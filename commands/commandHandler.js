@@ -57,20 +57,20 @@ class CommandHandler {
 
     /**
      * @param {Message} message The message to handle
-     * @param 
+     * @param {Client} client The discord client instance
      */
     handleMessage(client, message) {
             let name = message.content.split(' ')[0].substring(prefix.length);
             let args = message.content.split(' ').slice(1);
 
             if (this.#commands.has(name)) {
-                if (message.member.roles.cache.some(r => this.#commands.get(name).allowedRoleIDs.includes(r))) {
+                if (message.member.roles.cache.some(r => this.#commands.get(name).allowedRoleIDs.includes(r.id))) {
                     this.#commands.get(name).execute(client, message, args);
 
                 } else return this.sendNoPermissionError(message);
 
             } else if ([...this.#commands].find(([commandName, commandClass]) => commandClass.aliases.includes(name))) {
-                if (message.member.roles.cache.some(r => [...this.#commands].find(([commandName, commandClass]) => commandClass.allowedRoleIDs.includes(r)))) {
+                if (message.member.roles.cache.some(r => [...this.#commands].find(([commandName, commandClass]) => commandClass.allowedRoleIDs.includes(r.id)))) {
                     [...this.#commands].find(([commandName, commandClass]) => commandClass.execute(client, message, args));
 
                 } else return this.sendNoPermissionError(message);
