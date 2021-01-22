@@ -24,7 +24,7 @@ class CommandHandler {
      * @param {Message} message The message that should be answered with "missing permission error"
      */
     sendNoPermissionError(message) {
-        return message.channel.send('Die hast nicht die nötigen Berechtigungen.');
+        return message.channel.send('Du hast nicht die nötigen Berechtigungen.');
     }
 
     /**
@@ -65,13 +65,13 @@ class CommandHandler {
             let args = message.content.split(' ').slice(1);
 
             if (this.#commands.has(name)) {
-                if (underscore.intersection(message.member.roles.cache, this.#commands.get(name).allowedRoleIDs.length >= 1)) {
+                if (message.member.roles.cache.some(r => this.#commands.get(name).allowedRoleIDs.includes(r))) {
                     this.#commands.get(name).execute(client, message, args);
 
                 } else return this.sendNoPermissionError(message);
 
             } else if ([...this.#commands].find(([commandName, commandClass]) => commandClass.aliases.includes(name))) {
-                if (underscore.intersection(message.member.roles.cache, [...this.#commands].find(([commandName, commandClass]) => commandClass.aliases))) {
+                if (message.member.roles.cache.some(r => [...this.#commands].find(([commandName, commandClass]) => commandClass.allowedRoleIDs.includes(r)))) {
                     [...this.#commands].find(([commandName, commandClass]) => commandClass.execute(client, message, args));
 
                 } else return this.sendNoPermissionError(message);
