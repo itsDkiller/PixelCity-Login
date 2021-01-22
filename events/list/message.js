@@ -3,7 +3,8 @@
 // This file is licensed under the GNU General Public License v3.0 only.
 // License text available at https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
-const { Event } = require('../Event');
+const { Event }   = require('../Event');
+const { Message } = require('discord.js');
 
 class MessageEvent extends Event {
 
@@ -11,9 +12,11 @@ class MessageEvent extends Event {
         super('message', false);
     }
 
-    execute(message) {
-        console.log('Emit message event');
-    }
+    /**
+     * 
+     * @param {Message} message The discord message that emit this event
+     */
+    execute(message) {}
 }
 
 module.exports = MessageEvent;

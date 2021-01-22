@@ -3,11 +3,10 @@
 // This file is licensed under the GNU General Public License v3.0 only.
 // License text available at https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
-const { logger } = require('../logger/logger');
-const fs         = require('fs');
-const underscore = require('underscore');
-
-let client;
+const { Message, Client } = require('discord.js');
+const { logger }          = require('../logger/logger');
+const fs                  = require('fs');
+const underscore          = require('underscore');
 
 class CommandHandler {
 
@@ -20,6 +19,9 @@ class CommandHandler {
         return this.#commands;
     }
 
+    /**
+     * @param {Message} message The message that should be answered with "missing permission error"
+     */
     sendNoPermissionError(message) {
         return message.channel.send('Die hast nicht die nötigen Berechtigungen.');
     }
@@ -54,7 +56,7 @@ class CommandHandler {
     }
 
     /**
-     * @param {any} message The messageto handle
+     * @param {Message} message The message to handle
      */
     handleMessage(message) {
         try {

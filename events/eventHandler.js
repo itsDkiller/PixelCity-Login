@@ -21,7 +21,7 @@ class EventHandler {
     /**
      * @returns {Promise}
      */
-    loadEventFiles() {
+    bindEventFiles() {
         return new Promise((resolve, reject) => {
             try {
                 fs.readdir(__dirname + '/list', (err, files) => {

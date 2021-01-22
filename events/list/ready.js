@@ -11,9 +11,7 @@ class ReadyEvent extends Event {
         super('ready', false);
     }
 
-    execute() {
-        console.log('Emit ready event');
-    }
+    execute() {}
 }
 
 module.exports = ReadyEvent;
