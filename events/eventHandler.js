@@ -1,4 +1,5 @@
 const { logger } = require('../logger/logger');
+const { client } = require('../client/client');
 const fs         = require('fs');
 
 class EventHandler {
@@ -29,6 +30,8 @@ class EventHandler {
                         let eventName  = event.name;
 
                         map.set(eventName, event);
+
+                        client.on(eventName, event.execute.bind(0, client));
                     }
                     this.#events = map;
                     return resolve();

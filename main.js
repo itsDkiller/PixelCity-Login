@@ -28,6 +28,8 @@ class PixelCityLogin {
 
         await client.login(config.token);
         logger.displayInfo('Start', 'Discord client succesfully logged in as ' + client.user.tag);
+
+        console.log(client.eventNames())
     }
 }
 
