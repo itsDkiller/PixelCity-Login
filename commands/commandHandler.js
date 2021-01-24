@@ -43,6 +43,11 @@ class CommandHandler {
                        let commandName  = command.name;
 
                        map.set(commandName, command);
+
+                       for (let alias in command.aliases) {
+                           if (map.has(alias)) return;
+                           map.set(alias, command);
+                       }
                    }
                    this.#commands = map;
                    return resolve();
