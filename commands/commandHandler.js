@@ -7,6 +7,7 @@ const { Message, Client } = require('discord.js');
 const { logger }          = require('../logger/logger');
 const fs                  = require('fs');
 const prefix              = require('../config.json').prefix;
+const { Command }         = require('./Command');
 
 class CommandHandler {
 
@@ -24,6 +25,31 @@ class CommandHandler {
      */
     sendNoPermissionError(message) {
         return message.channel.send('Du hast nicht die nötigen Berechtigungen.');
+    }
+
+    /**
+     * @param {Array} givenArgs The arguments that were given
+     * @param {Command} commandClass Command instance
+     * @returns {Promise}
+     */
+    sendMissingArgumentsError(givenArgs, commandClass) {
+        return new Promise((resolve, reject) => {
+            if (givenArgs.length > commandClass.arguments.length) {
+                message.channel.send('Es wurden zu viele Argumente übergeben.\n Benutzung: `' + prefix + commandClass.name + commandClass.arguments.join(' '));
+                return resolve();
+            } else {
+                let newArr = [];
+                for (i = 0; i < commandClass.arguments.length; i++) {
+                    if (givenArgs[i]) {
+                        return newArr.push(commandClass.arguments[i]);
+                    } else {
+                        return newArr.push('!' + commandClass.arguments[i]);
+                    }
+                }
+                message.channel.send('Es wurden nicht genug Argumente angegeben. Benutzung: `' + prefix + commandClass.name + newArr.join(" "));
+                return resolve();
+            }
+        });
     }
 
     /**
@@ -69,14 +95,11 @@ class CommandHandler {
             let args = message.content.split(' ').slice(1);
 
             if (this.#commands.has(name)) {
-                if (message.member.roles.cache.some(r => this.#commands.get(name).allowedRoleIDs.includes(r.id))) {
-                    this.#commands.get(name).execute(client, message, args);
+                let command = this.#commands.get(name);
 
-                } else return this.sendNoPermissionError(message);
-
-            } else if ([...this.#commands].find(([commandName, commandClass]) => commandClass.aliases.includes(name))) {
-                if (message.member.roles.cache.some(r => [...this.#commands].find(([commandName, commandClass]) => commandClass.allowedRoleIDs.includes(r.id)))) {
-                    [...this.#commands].find(([commandName, commandClass]) => commandClass.execute(client, message, args));
+                if (message.member.roles.cache.some(r => command.allowedRoleIDs.includes(r.id))) {
+                    if (args.length !== command.arguments.length) return this.sendMissingArgumentsError();
+                    command.execute(client, message, args);
 
                 } else return this.sendNoPermissionError(message);
 

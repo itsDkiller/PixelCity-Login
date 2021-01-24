@@ -11,7 +11,7 @@ const prefix              = require('../../config.json').prefix;
 class AddEntryCommand extends Command {
 
     constructor() {
-        super('addentry', 'Add a player entry into the database', [], ['481102427127414788']);
+        super('addentry', 'Add a player entry into the database', [], ['481102427127414788'], ['Discord ID', 'MCPE Name', 'Language']);
     }
 
     /**

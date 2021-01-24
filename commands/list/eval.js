@@ -10,7 +10,7 @@ const vm                  = require('vm');
 class EvalCommand extends Command {
 
     constructor() {
-        super('eval', 'Execute JavaScript code directly', [], ['481102427127414788']);
+        super('eval', 'Execute JavaScript code directly', [], ['481102427127414788'], []);
     }
 
     /**
